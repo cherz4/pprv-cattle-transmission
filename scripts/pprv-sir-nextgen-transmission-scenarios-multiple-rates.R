@@ -74,16 +74,30 @@ df = list(S1 = 1, S2 = 1, I1 = 0, I2 = 0)
 # Figure Margin Setup
 # set working directory
 setwd("C:/Users/Catherine Herzog/Box Sync/BMGF_PPRVTransmissionTrial/Manuscripts/")
-jpeg("Fig4_ModelingSpillback_03142023_notitle_xaxislimited.jpeg", width = 12, height = 10, units = "in", quality = 100, res = 600)
+jpeg("Fig4_ModelingSpillback_03142023_notitle_xaxislimited_10d.jpeg", width = 12, height = 10, units = "in", quality = 100, res = 600)
 par(mfrow = c(2,2),
     oma = c(4,6.5,0,1) + 0.1,
     mar = c(1,2,1,1) + 0.1)
 
-# Daily transmission rates from 35 day empirical trials
-beta_rate_ctg = 0.0008529418  # (n=32 goats)
-beta_rate_ctc = 0.0008529418  # no empirical data, have assumed same as C->G 
-beta_rate_gtg = 0.07540164    # (n=12 goats)
-beta_rate_gtc = 0.03960841    # (n=2 cattle)
+# # Transmission rates - include rates from only 1 infectious period per run of this script
+# # 14 day infectious period
+# beta_rate_ctg = 0.002132355  # (n=32 goats)
+# beta_rate_ctc = 0.002132355  # no empirical data, have assumed same as C->G
+# beta_rate_gtg = 0.1885041    # (n=12 goats)
+# beta_rate_gtc = 0.09902103    # (n=2 cattle)
+
+# 10 day infectious period
+beta_rate_ctg = 0.002985296  # (n=32 goats)
+beta_rate_ctc = 0.002985296  # no empirical data, have assumed same as C->G
+beta_rate_gtg = 0.2639057    # (n=12 goats)
+beta_rate_gtc = 0.1386294    # (n=2 cattle)
+# 
+# # 8 day infectious period
+# beta_rate_ctg = 0.00373162  # (n=32 goats)
+# beta_rate_ctc = 0.00373162  # no empirical data, have assumed same as C->G
+# beta_rate_gtg = 0.3298822    # (n=12 goats)
+# beta_rate_gtc = 0.1732868    # (n=2 cattle)
+
 
 #Mortality rates (converted to daily rates) 
 # Small ruminant rate from literature. Inverse of rate gives life span ~ 2.15 years.
@@ -120,7 +134,7 @@ para = list(mu1 = parms$mu[1],
             N1 = parms$N[1],
             N2 = parms$N[2])
 
-beta2=seq(0,.1, by=0.001)
+beta2=seq(0, round(beta_rate_gtg, 2), length.out = 101)
 p=seq(0,1, by=0.01)  
 RE=matrix(NA, ncol=length(beta2), nrow=length(p))
 for(i in 1:length(beta2)){
@@ -132,7 +146,7 @@ for(i in 1:length(beta2)){
 }
 
 # plot
-contour(beta2, p, RE, levels = seq(0,4,0.5), lwd = 2, vfont = c("sans serif", "bold"), labcex = 1.25, 
+contour(beta2, p, RE, levels = seq(0,9,1), lwd = 2, vfont = c("sans serif", "bold"), labcex = 1.25, 
         #main = "Symmetric", 
         xaxt = "n", yaxt = "n", cex.axis = 1.5)
 axis(side = 1, at = seq(0,max(beta2), by =0.2), labels = FALSE)
@@ -165,7 +179,7 @@ para = list(mu1 = parms$mu[1],
             N1 = parms$N[1],
             N2 = parms$N[2])
 
-beta2=seq(0,.1, by=0.001)
+beta2=seq(0, round(beta_rate_gtg, 2), length.out = 101)
 p=seq(0,1, by=0.01)  
 RE=matrix(NA, ncol=length(beta2), nrow=length(p))
 for(i in 1:length(beta2)){
@@ -177,7 +191,7 @@ for(i in 1:length(beta2)){
 }
 
 # plot
-contour(beta2, p, RE, levels = seq(0,4,0.5), lwd = 2, vfont = c("sans serif", "bold"), labcex = 1.25, 
+contour(beta2, p, RE, levels = seq(0,9,1), lwd = 2, vfont = c("sans serif", "bold"), labcex = 1.25, 
         #main = "Species-Specific Symmetric",
         xaxt = "n", yaxt = "n", cex.axis = 1.5)
 axis(side = 1, at = seq(0, max(beta2),by =0.2), labels = FALSE)
@@ -208,7 +222,7 @@ para = list(mu1 = parms$mu[1],
             N1 = parms$N[1],
             N2 = parms$N[2])
 
-beta2=seq(0,.1, by=0.001)
+beta2=seq(0, round(beta_rate_gtg, 2), length.out = 101)
 p=seq(0,1, by=0.01)  
 RE=matrix(NA, ncol=length(beta2), nrow=length(p))
 for(i in 1:length(beta2)){
@@ -220,7 +234,7 @@ for(i in 1:length(beta2)){
 }
 
 #plot
-contour(beta2, p, RE, levels = seq(0,4,0.5), lwd = 2, vfont = c("sans serif", "bold"), labcex = 1.25, 
+contour(beta2, p, RE, levels = seq(0,9,1), lwd = 2, vfont = c("sans serif", "bold"), labcex = 1.25, 
         #main = "Asymmetric Spill Forward", 
         yaxt = "n", cex.axis = 1.5)
 axis(side = 2, at = seq(0,1,by =0.2), labels = c(0, 20, 40, 60, 80, 100), cex.axis = 1.5)
@@ -250,7 +264,7 @@ para = list(mu1 = parms$mu[1],
             N1 = parms$N[1],
             N2 = parms$N[2])
 
-beta2=seq(0,.1, by=0.001)
+beta2=seq(0, round(beta_rate_gtg, 2), length.out = 101)
 p=seq(0,1, by=0.01)  
 RE=matrix(NA, ncol=length(beta2), nrow=length(p))
 for(i in 1:length(beta2)){
@@ -263,7 +277,7 @@ for(i in 1:length(beta2)){
 
 
 #plot
-contour(beta2, p, RE, levels = seq(0,4,0.5), lwd = 2, vfont = c("sans serif", "bold"), labcex = 1.25, 
+contour(beta2, p, RE, levels = seq(0,9,1), lwd = 2, vfont = c("sans serif", "bold"), labcex = 1.25, 
         #main = "Asymmetric Spill Forward & Spillback", 
         yaxt = "n", cex.axis = 1.5)
 axis(side = 2, at = seq(0,1,by =0.2), labels = FALSE, cex.axis = 1.5)

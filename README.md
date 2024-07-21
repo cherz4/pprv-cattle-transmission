@@ -100,6 +100,9 @@ Column name and definition
 - i2n: binary variable, 1 if any tissue culture score indicated successful virus isolation from an ocular swab, 0 if no isolation from an nasal swab, in DMEM media
 - i2r: binary variable, 1 if any tissue culture score indicated successful virus isolation from an ocular swab, 0 if no isolation from an rectal swab, in DMEM media
 
+Additional tissue culture data files are found in the data/culture directory. The results (positive or negative) were transcribed over to the above file for analysis but we have provided these files so the specific scores on different dpi can be seen, although we did not differentiate between scores in the study.
+
+
 ## Serology Data
 
 Column name and definition
